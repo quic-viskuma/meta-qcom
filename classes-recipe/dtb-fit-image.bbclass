@@ -66,16 +66,13 @@ python do_generate_qcom_fitimage() {
         if not parts:
             continue
 
-        base_stem = parts[0]
-        ovl_stems = parts[1:]
-
         # Skip base+overlay combinations not present in KERNEL_DEVICETREE to avoid generating invalid FIT configs
         # from declarative FIT_DTB_COMPATIBLE metadata
         if not all(dtb in dtb_keys_list for dtb in parts):
             continue
 
-        base = base_stem + ".dtb"
-        overlays = [ovl + ".dtbo" for ovl in ovl_stems]
+        base = parts[0] + ".dtb"
+        overlays = [ovl + ".dtbo" for ovl in parts[1:]]
 
         overlay_groups.setdefault(base, []).append(overlays)
         overlay_compats[key] = compat_val
@@ -91,8 +88,8 @@ python do_generate_qcom_fitimage() {
         if fname.endswith(".dtb"):
             dtb_key = os.path.splitext(dtb_id)[0]
             compatible = d.getVarFlag("FIT_DTB_COMPATIBLE", dtb_key) or ""
-            if not compatible:
-                bb.fatal(f"FIT_DTB_COMPATIBLE[{dtb_key}] is not set for base DTB '{fname}'.")
+            if not compatible and dtb_id not in overlay_groups:
+                bb.fatal(f"FIT_DTB_COMPATIBLE[{dtb_key}] is not set for '{fname}'.")
 
         root_node.fitimage_emit_section_dtb(dtb_id, dtb_path, compatible_str=compatible, dtb_type="flat_dt")
 
