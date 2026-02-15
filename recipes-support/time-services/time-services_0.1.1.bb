@@ -9,6 +9,7 @@ LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=65b8cd575e75211d9d4ca8603167da1c"
 
 SRC_URI = "git://github.com/quic/time-services.git;branch=main;protocol=https;tag=v${PV}"
+SRCREV = "17994301c7607f2e8f1378800a0de8099b94b94c"
 
 DEPENDS = "glib-2.0 qmi-framework"
 
