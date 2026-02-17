@@ -3,6 +3,6 @@
 header:
   version: 14
   includes:
-  - ci/qcm6490.yml
+  - ci/base.yml
 
 machine: qcm6490-idp

@@ -3,6 +3,6 @@
 header:
   version: 14
   includes:
-  - ci/qcm2290.yml
+  - ci/base.yml
 
 machine: rb1-core-kit
