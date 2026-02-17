@@ -33,6 +33,7 @@ local_conf_header:
     INHERIT += "buildstats-summary"
     INHERIT += "buildhistory"
     INHERIT += "rm_work"
+    INHERIT += "image-buildinfo"
   diskmon: |
     BB_DISKMON_DIRS ??= "\
       STOPTASKS,${TMPDIR},1G,100K \
